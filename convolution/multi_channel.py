@@ -15,3 +15,12 @@ K= torch.stack((K,K+1,K+2),0)
 print(K.shape)
 print(X.shape)
 print(corr2d_multi_in_out(X,K))
+
+
+def corr2d_multi_in_out_1x1(X,K):
+    c_i,h,w = X.shape
+    c_o = K.shape[0]
+    X = X.reshape((c_i,h*w))
+    K = K.reshape((c_o,c_i))
+    Y = torch.matmul(K,X)
+    return Y.reshape((c_o,h,w))
